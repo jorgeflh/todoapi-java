@@ -37,4 +37,12 @@ public class TodoController {
         return todoOptional.map(todo -> new ResponseEntity<>(todo, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo) {
+        Optional<Todo> todoOptional = todoService.updateTodo(id, updatedTodo);
+
+        return todoOptional.map(todo -> new ResponseEntity<>(todo, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

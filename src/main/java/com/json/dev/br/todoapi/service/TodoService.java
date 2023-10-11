@@ -25,4 +25,15 @@ public class TodoService {
     public Optional<Todo> getTodoById(Long id) {
         return todoRepository.findById(id);
     }
+
+    public Optional<Todo> updateTodo(Long id, Todo updatedTodo) {
+        Optional<Todo> todoOptional = todoRepository.findById(id);
+        if (todoOptional.isPresent()) {
+            Todo existingTodo = todoOptional.get();
+            existingTodo.setTitle(updatedTodo.getTitle());
+            existingTodo.setCompleted(updatedTodo.getCompleted());
+            todoRepository.save(existingTodo);
+        }
+        return todoOptional;
+    }
 }
